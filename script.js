@@ -5,7 +5,6 @@ window.onload = function() {
         url: 'https://randomuser.me/api/?inc=name,picture',
         dataType: 'json',
         success: function(data) {
-            // console.log(data);
             const dataRes = data.results;
             const name = "Heyy "+dataRes[0].name.first;
             const image = dataRes[0].picture.large;
@@ -25,37 +24,7 @@ const cardContainer = document.querySelector('[data-card-container]');
 
 let users = [];
 
-/*function displayShorted() {
-    users.forEach(user => {
-        cardContainer.innerHTML = '';
-        const card = cardTemplate.content.cloneNode(true).children[0]; 
-        const cardName = card.querySelector('[data-name]');
-        const cardMail = card.querySelector('[data-mail]');
-        const cardLocation = card.querySelector('[data-location]');
-        const cardImg = card.querySelector('[data-img]')
-        cardName.textContent = user.title +" " +user.first+" "+user.last;
-        cardMail.textContent = user.email;
-        cardLocation.textContent = "I am from "+user.location;
-        cardImg.src = user.picture;
-        cardContainer.append(card);
-    })
-}*/
-
-document.querySelector('.shBtn').addEventListener('click', () => {
-    users.sort(function(a,b){
-        const nameA = a.first.toUpperCase();
-        const nameB = b.first.toUpperCase();
-        if(nameA<nameB) {
-            return -1;
-        }
-        if(nameA>nameB) {
-            return 1;
-        }
-
-        return 0;
-    })
-
-    console.log(users);
+function displayShorted() {
     cardContainer.innerHTML = '';
     users.forEach(user => {
         const card = cardTemplate.content.cloneNode(true).children[0]; 
@@ -69,6 +38,56 @@ document.querySelector('.shBtn').addEventListener('click', () => {
         cardImg.src = user.picture;
         cardContainer.append(card);
     })
+}
+
+function shortMail(a,b){
+    const mailA = a.email.toUpperCase();
+    const mailB = b.email.toUpperCase();
+    if(mailA<mailB){
+        return -1;
+    }
+    if(mailA>mailB){
+        return 1;
+    }
+
+    return 0;
+}
+
+function shortName(a,b){
+    const nameA = a.first.toUpperCase();
+    const nameB = b.first.toUpperCase();
+    if(nameA<nameB) {
+        return -1;
+    }
+    if(nameA>nameB) {
+        return 1;
+    }
+
+    return 0;
+}
+
+document.querySelector('.mailshBtn').addEventListener('click', () => {
+    console.log(users);
+    users.sort(shortMail);
+    displayShorted();
+    console.log(users);
+})
+
+document.querySelector('.mailshZBtn').addEventListener('click', () => {
+    users.sort(shortMail);
+    users.reverse();
+    displayShorted();
+})
+
+document.querySelector('.shBtn').addEventListener('click', () => {
+    users.sort(shortName);
+    displayShorted();
+})
+
+document.querySelector('.shZBtn').addEventListener('click', () => {
+    users.sort(shortName);
+    users.reverse();
+    displayShorted();
 })
 
 SearchButton.addEventListener('click', () => {

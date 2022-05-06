@@ -107,3 +107,14 @@
     font-size: 16px;
     font-weight: 600;
 }
+
+.short-btns {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.short-btns input {
+    margin-right: 10px;
+}
